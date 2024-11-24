@@ -6,18 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Marketplace de nombres de usuario</h1>
+    <h1>Generador de billeteras</h1>
+    <button id="buttonGenerarCartera">Generar Cartera</button>
+
+    <ul>
+        <li>mnemonic: <span id = "spanMnemonic"></span></li>
+    </ul>
+
     <script type="module">
         import { ethers } from 'https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.min.js'
 
-        const providerUrl = 'https://core.public-rpc.com/'
-        const provider = new ethers.JsonRpcProvider(providerUrl)
+        const $spanMnemonic = document.querySelector('#spanMnemonic')
+        const $buttonGenerarCartera = document.querySelector('#buttonGenerarCartera')
+        $buttonGenerarCartera.addEventListener('click', () => {
+            console.log(ethers)
+            const newWallet = ethers.Wallet.createRandom()
+            console.log(newWallet)
+            console.log('address', newWallet.address)
+            console.log(newWallet.mnemonic.phrase)
 
-        async function obtenerBalance() {
-            const balance = await provider.getBalance('0xbbcB25005d9BEd3ebed7577f74AC732FF1c0dca7')
-            console.log(balance)
-        }
-        obtenerBalance()
+            $spanMnemonic.innerHTML = newWallet.mnemonic.phrase
+        })
     </script>
 </body>
 </html>
